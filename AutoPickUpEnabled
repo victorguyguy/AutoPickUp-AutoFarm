@@ -1,7 +1,37 @@
 
 print("working")
 wait(5)
-
+local lobbymap = game:GetService("Workspace").Map:GetChildren()
+for _,v1 in ipairs(lobbymap) do
+    if v1.Name == "Lobby" and v1:IsA("Folder") then 
+    print("you wont get kicked") 
+    elseif v1.Name == "BeginnersDungeon" or v1.Name == "JungleDungeon" or v1.Name == "SnowCastleDungeon" or v1.Name == "BeginnersDungeonEasy" then
+    spawn(function()
+   local Players = game:GetService("Players")
+   local LocalPlayer = Players.LocalPlayer
+   
+   function areMultiplePlayersInServer()
+       local playerCount = #Players:GetPlayers()
+       return playerCount > 1
+   end
+   
+   function kickLocalPlayer()
+       if LocalPlayer then
+           LocalPlayer:Kick("Possible chance that an admin joined you ")
+       end
+   end
+   
+   while true do
+       if areMultiplePlayersInServer() then
+           kickLocalPlayer()
+       end
+       wait(1) -- Adjust the frequency of checks as needed
+   end
+   
+   end)
+    
+    end
+end
 local GUI = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local TurnOnButton = Instance.new("TextButton")
